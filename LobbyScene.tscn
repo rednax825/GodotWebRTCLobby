@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqn7fooepjrgd"]
+
+[ext_resource type="Script" path="res://LobbyScene.gd" id="1_3c37k"]
+
+[node name="LobbyScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3c37k")
+
+[node name="LobbyPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 138.0
+offset_right = 745.0
+offset_bottom = 479.0
+
+[node name="SharePromptLabel" type="Label" parent="LobbyPanel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 9.0
+offset_right = 281.0
+offset_bottom = 32.0
+text = "Give this code to your friends:"
+
+[node name="JoinCodeCopyButton" type="Button" parent="LobbyPanel"]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 34.0
+offset_right = 246.0
+offset_bottom = 70.0
+
+[node name="PlayersListLabel" type="Label" parent="LobbyPanel"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 79.0
+offset_right = 84.0
+offset_bottom = 102.0
+text = "Players:"
+
+[node name="PlayersListItemList" type="ItemList" parent="LobbyPanel"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 107.0
+offset_right = 282.0
+offset_bottom = 241.0
+allow_search = false
+
+[connection signal="pressed" from="LobbyPanel/JoinCodeCopyButton" to="." method="_on_join_code_copy_button_pressed"]

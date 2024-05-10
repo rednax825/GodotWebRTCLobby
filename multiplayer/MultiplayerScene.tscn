@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4khib2wmadv2"]
+
+[ext_resource type="Script" path="res://multiplayer/MultiplayerScene.gd" id="1_n503g"]
+[ext_resource type="Script" path="res://multiplayer/webrtc_client.gd" id="2_ay7v3"]
+
+[node name="MultiplayerScene" type="Node"]
+script = ExtResource("1_n503g")
+
+[node name="Client" type="Node" parent="."]
+script = ExtResource("2_ay7v3")

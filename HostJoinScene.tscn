@@ -1,0 +1,102 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4kdxifqg12ps"]
+
+[ext_resource type="Script" path="res://HostJoinScene.gd" id="1_jg3e6"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jg3e6")
+
+[node name="HostPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 500.0
+offset_bottom = 350.0
+
+[node name="Label" type="Label" parent="HostPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.5
+offset_right = 51.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Create Lobby
+"
+
+[node name="HostNameLineEdit" type="LineEdit" parent="HostPanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 55.0
+offset_right = 174.0
+offset_bottom = 86.0
+placeholder_text = "Name"
+max_length = 20
+
+[node name="HostButton" type="Button" parent="HostPanel"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 103.0
+offset_right = 128.0
+offset_bottom = 134.0
+disabled = true
+text = "Create"
+
+[node name="JoinPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 200.0
+offset_right = 800.0
+offset_bottom = 367.0
+
+[node name="Label" type="Label" parent="JoinPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_right = 40.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Join Lobby
+"
+
+[node name="ClientNameLineEdit" type="LineEdit" parent="JoinPanel"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 36.0
+offset_right = 171.0
+offset_bottom = 67.0
+placeholder_text = "Name"
+max_length = 20
+
+[node name="JoinCodeLineEdit" type="LineEdit" parent="JoinPanel"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 75.0
+offset_right = 169.0
+offset_bottom = 106.0
+placeholder_text = "Code"
+max_length = 6
+
+[node name="JoinButton" type="Button" parent="JoinPanel"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 115.0
+offset_right = 119.0
+offset_bottom = 146.0
+disabled = true
+text = "Join
+"
+
+[connection signal="text_changed" from="HostPanel/HostNameLineEdit" to="." method="_on_host_name_line_edit_text_changed"]
+[connection signal="pressed" from="HostPanel/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="text_changed" from="JoinPanel/ClientNameLineEdit" to="." method="_on_client_name_line_edit_text_changed"]
+[connection signal="text_changed" from="JoinPanel/JoinCodeLineEdit" to="." method="_on_join_code_line_edit_text_changed"]
+[connection signal="pressed" from="JoinPanel/JoinButton" to="." method="_on_join_button_pressed"]
