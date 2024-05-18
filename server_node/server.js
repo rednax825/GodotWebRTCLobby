@@ -1,6 +1,6 @@
 // packages
 const WebSocket = require('ws');
-const {v4: uuidv4} = require('uuid');
+const crypto = require('crypto');
 
 // server configuration constants
 const PORT = 9080;
@@ -55,7 +55,7 @@ function randomInt(low, high) {
 }
 
 function randomId() {
-	return uuidv4();
+	return Math.abs(new Int32Array(crypto.randomBytes(4).buffer)[0]);
 }
 
 function genLobbyCode() {
@@ -143,7 +143,7 @@ class Lobby {
 				p.ws.close(4000, STR_HOST_DISCONNECTED);
 			} else {
 				// if a non-host member left, just let each remaining member know they are gone
-				p.ws.send(MSG_TYPE.PEER_DISCONNECT, leavingPeerId);
+				p.ws.send(ProtoMessage(MSG_TYPE.PEER_DISCONNECT, leavingPeerId));
 			}
 		});
 		// update the lobby record
@@ -233,14 +233,13 @@ function parseMsg(peer, msg) {
 	
 	// lobby joining
 	if (type === MSG_TYPE.JOIN) {
-		let packed_data = null;
-		try {
-			packed_data = JSON.parse(data)
-		} catch (e) {
-			throw new ProtoError(4000, STR_INVALID_JOIN_DATA)
+		var lobby_to_join = "";
+		var player_name = data;
+
+		if(id) {
+			var lobby_to_join = data.substring(0, 6);
+			var player_name = data.substring(6);
 		}
-		const lobby_to_join = typeof(packed_data['lobby']) === 'string' ? packed_data['lobby'] : '';
-		const player_name = typeof(packed_data['name']) === 'string' ? packed_data['name'] : '';
 		
 		joinLobby(peer, lobby_to_join, player_name);
 		return;

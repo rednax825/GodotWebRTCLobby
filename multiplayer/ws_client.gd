@@ -54,6 +54,7 @@ func _process(_delta):
 func _parse_msg():
 	# attempt to get dict from JSON blob, handle errors
 	var parsed = JSON.parse_string(ws.get_packet().get_string_from_utf8())
+	print(parsed)
 	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("type") or not parsed.has("id") or \
 		typeof(parsed.get("data")) != TYPE_STRING:
 		return false
@@ -94,11 +95,12 @@ func _parse_msg():
 	return true # parsed successfully
 
 func join_lobby(lobbyToJoin: String, _player_name):
-	var d = JSON.stringify({
-		"lobby": lobbyToJoin,
-		"name": _player_name
-	})
-	return _send_msg(MSG_TYPE.JOIN, 0, d)
+	# if the id is 0, the data just contains the player name
+	# if the id is 1, the data contains the lobby to join and the player name concatinated
+	var d = lobbyToJoin + _player_name
+	if lobbyToJoin == "":
+		return _send_msg(MSG_TYPE.JOIN, 0, d)
+	return _send_msg(MSG_TYPE.JOIN, 1, d)
 
 func seal_lobby():
 	return _send_msg(MSG_TYPE.SEAL, 0)
