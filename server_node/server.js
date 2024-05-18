@@ -158,7 +158,7 @@ class Lobby {
 	
 	seal(peer) {
 		// only host can SEAL
-		if(getPeerId(peer) !== 1) {
+		if(this.getPeerId(peer) !== 1) {
 			throw new ProtoError(4000, STR_ONLY_HOST_CAN_SEAL)
 		}
 		// notify each peer that the lobby is sealed
