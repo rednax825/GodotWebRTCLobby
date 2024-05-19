@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bankimtycnak1"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_pstw3"]
+[ext_resource type="Script" path="res://PlayerInput.gd" id="2_ffyga"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rb3gq"]
+properties/0/path = NodePath(".:player")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("NameLabel:text")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_34nu5"]
+properties/0/path = NodePath("PlayerInput:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pn6o1"]
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_pstw3")
+
+[node name="PeerSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_rb3gq")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_34nu5")
+script = ExtResource("2_ffyga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pn6o1")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -96.0
+offset_top = -11.0
+offset_right = 95.0
+offset_bottom = 12.0
+horizontal_alignment = 1

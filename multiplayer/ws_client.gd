@@ -5,6 +5,7 @@ enum MSG_TYPE {JOIN, ID, PEER_CONNECT, PEER_DISCONNECT, OFFER, ANSWER, CANDIDATE
 var lobby := ""
 var player_name := ""
 var ws_peers : Dictionary
+var ws_id : int
 
 var ws: WebSocketPeer = WebSocketPeer.new()
 var code = 1000
@@ -67,6 +68,7 @@ func _parse_msg():
 	var msg_data := str(msg.data)
 	
 	if type == MSG_TYPE.ID:
+		ws_id = src_id
 		connected.emit(src_id)
 	elif type == MSG_TYPE.JOIN:
 		lobby_joined.emit(msg.data)

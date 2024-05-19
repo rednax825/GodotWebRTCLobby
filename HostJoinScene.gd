@@ -36,9 +36,9 @@ func _on_host_button_pressed():
 	multiplayerScene.create_lobby(get_node("HostPanel/HostNameLineEdit").text)
 
 func _on_join_button_pressed():
-	var name = get_node("JoinPanel/ClientNameLineEdit").text
+	var player_name = get_node("JoinPanel/ClientNameLineEdit").text
 	var code = get_node("JoinPanel/JoinCodeLineEdit").text
-	multiplayerScene.join_lobby(name, code)
+	multiplayerScene.join_lobby(player_name, code)
 	
-func _lobby_joined(lobby):
+func _lobby_joined(_lobby):
 	get_tree().change_scene_to_file("res://LobbyScene.tscn")
